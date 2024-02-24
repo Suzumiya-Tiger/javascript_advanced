@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /* 1.特殊情况绑定 */
+      //   function foo() {
+      //     console.log("foo:", this);
+      //   }
+      //   foo.apply("aaa");
+      //   /* 默认null和undefined绑定都是window,严格模式下则会对应显示为null和undefined */
+      //   foo.apply(null);
+      //   foo.apply(undefined);
+
+      /* 2.间接函数引用 */
+      var obj1 = {
+        name: "obj1",
+        foo: function () {
+          console.log("foo:", this);
+        }
+      };
+      var obj2 = {
+        name: "obj2"
+      };
+      obj2.foo = obj1.foo;
+      /* 2.1应用隐式绑定 */
+      //   obj2.foo();
+
+      /* 2.2.IIFE形式的调用会导致函数以独立形式调用，当前作用域是window  */
+      // 函数是作为一个独立的函数表达式调用的，所以 this 会绑定到全局对象。
+      (obj2.foo = obj1.foo)();
+    </script>
+  </body>
+</html>

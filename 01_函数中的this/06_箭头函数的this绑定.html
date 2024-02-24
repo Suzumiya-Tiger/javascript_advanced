@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script>
+    /**
+     * 箭头函数的this绑定
+     * 1.箭头函数不会绑定this或者arguments属性，箭头函数的this绑定取决于外层（函数或者全局）作用域
+     * 2.箭头函数不可以作为构造函数来使用，也就是说不能使用new命令，否则会抛出一个错误
+     * 3.箭头函数不存在原型属性
+     **/
+
+    /*    1.箭头函数返回普通对象需要添加括号()区分执行体 */
+    /* const arrFn = () => {
+      return { name: "aaa" };
+    }; */
+    const arrFn = () => ({ name: "aaa" });
+    arrFn();
+    /*    2.箭头函数实现nums的所有偶数平方的和 */
+    const nums = [1, 2, 3, 4, 5, 6];
+    const result = nums
+      .filter(item => item % 2 === 0)
+      .map(item => item * item)
+      .reduce((pre, cur) => pre + cur);
+  </script>
+  <body></body>
+</html>

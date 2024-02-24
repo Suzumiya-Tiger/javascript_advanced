@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script>
+    // 2.监听所有的属性: 遍历所有的属性, 对每一个属性使用defineProperty
+    const keys = Object.keys(obj);
+    for (const key of keys) {
+      let value = obj[key];
+      Object.defineProperty(obj, key, {
+        set: function (newValue) {
+          console.log(`监听: 给${key}设置了新的值:`, newValue);
+          value = newValue;
+        },
+        get: function () {
+          console.log(`监听: 获取${key}的值`);
+          return value;
+        }
+      });
+    }
+  </script>
+  <body></body>
+</html>

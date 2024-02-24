@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script>
+    /* 箭头函数中，this的值是在函数被定义时决定的(重要)，而不是在函数被调用时决定的。
+    它使用的是定义时所在的函数上下文的this值。
+    在你的代码中，箭头函数bar是在全局上下文中定义的，所以this指向全局对象。
+    当你使用apply方法调用bar并试图改变this的值时，
+    它不会有任何效果，因为箭头函数的this已经在定义时被固定了。 */
+
+    var bar = () => {
+      console.log("bar:", this);
+    };
+    // 通过apply调用箭头函数，一样无法使this指向String对象，而是指向全局对象
+    bar.apply("aaaa");
+
+    /* 题目一 */
+    // var obj = {
+    //   name: "obj",
+    //   foo: function () {
+    //     var bar = () => {
+    //       console.log("bar:", this);
+    //     };
+    //     return bar;
+    //   }
+    // };
+    // var fn = obj.foo();
+    // fn.apply("bbb");
+    // 为什么fn.apply("bbb")的结果是obj，而不是全局对象？
+    /* 当你调用 obj.foo() 时，bar 函数被创建，并且它的 this 被绑定到 obj。
+    然后，bar 被返回并赋值给 fn。当你后来调用 fn.apply("bbb") 时，
+    尽管你试图通过 apply 改变 this 的值，但是 this 的值已经在 bar 被定义时被固定为 obj，
+    所以 this 仍然指向 obj。
+    这就是为什么 bar 里面的 this 指向 obj，即使 fn 是在全局作用域调用的。 */
+
+    /* 题目二 */
+    var obj = {
+      name: "obj",
+      foo: () => {
+        var bar = () => {
+          console.log("bar:", this);
+        };
+        return bar;
+      }
+    };
+    var fn = obj.foo();
+    fn.apply("bbb");
+    /** 严格注意这道题目！
+     * obj的{}并非是一个作用域，作用域指的是函数作用域，而不是对象作用域
+     * this的查找是沿着作用域链向上查找的，这个作用域链是在函数定义时决定的
+     * 所以这里的this指向的是全局对象
+     * window=>顶级作用域
+     * foo=>二级作用域
+     * bar=>三级作用域
+     **/
+  </script>
+</html>

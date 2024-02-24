@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function request(url, callback) {
+        var result = ["aaa", "bbb", "ccc"];
+        callback(result);
+      }
+
+      // 实际操作的位置(业务)
+      var obj = {
+        names: [],
+        network: function () {
+          //   request("/names", function (res) {
+          /**
+           * request 函数并不是被 obj.network() 直接调用的。
+           * request 函数是在 obj.network() 方法内部被调用的，但它并不是作为 obj 的方法被调用的。
+           * 因此，request 函数的 this 并不指向 obj，而是指向全局对象。
+           * 这是因为在 JavaScript 中，this 的值是在函数被调用时确定的，而不是在函数被定义时确定的。
+           * this 的值取决于函数的调用方式，而不是它在哪里被定义。
+           * 当一个函数作为普通函数（即不作为某个对象的方法）被调用时，它的 this 默认指向全局对象。
+           * 这里可以使用_this = this;来解决这个问题，原理基于闭包实现
+           **/
+          // this.names.concat(res);
+          //   });
+          /* 使用箭头函数解决,这里的this指向函数上下文 */
+          request("/names", res => {
+            this.names.concat(res);
+          });
+        }
+      };
+      obj.network();
+    </script>
+  </body>
+</html>
