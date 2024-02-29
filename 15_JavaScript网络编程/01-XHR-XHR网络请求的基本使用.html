@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 1.创建XMLHttpRequest对象
+      const xhr = new XMLHttpRequest();
+      // 2.监听状态的改变(宏任务)
+      // 在这里获取发送 请求的结果
+      xhr.onreadystatechange = function () {
+        // 判断xhr的请求状态
+        if (xhr.readyState !== XMLHttpRequest.DONE) return;
+        // 获取响应的结果
+        console.log(xhr.response);
+        // 将字符串转换为JSON对象
+        const resJSON = JSON.parse(xhr.response);
+        console.log(resJSON);
+      };
+      // 3.配置请求(通过open方法配置请求)
+      // method:请求的方式(get/post/put/delete)
+      xhr.open("get", "http://123.207.32.32:8000/home/multidata");
+      // 4.发送请求(浏览器帮助发送对应的请求)
+      xhr.send();
+    </script>
+  </body>
+</html>

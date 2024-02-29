@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 1.创建XMLHttpRequest对象
+      const xhr = new XMLHttpRequest();
+      // 2.监听状态的改变(宏任务)
+      // 在这里获取发送 请求的结果
+      xhr.onreadystatechange = function () {
+        console.log("statechange", xhr.readyState);
+      };
+      // 3.配置请求(通过open方法配置请求)
+      // method:请求的方式(get/post/put/delete)
+      xhr.open("get", "http://123.207.32.32:8000/home/multidata");
+      // 4.发送请求(浏览器帮助发送对应的请求)
+      xhr.send();
+
+      // 如果open配置了同步请求，那么xhr会等待请求结果返回之后再执行下面的代码
+      console.log(xhr.response);
+      console.log("1");
+      console.log("2");
+      console.log("3");
+    </script>
+  </body>
+</html>

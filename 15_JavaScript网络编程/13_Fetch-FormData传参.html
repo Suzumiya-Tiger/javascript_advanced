@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      async function getData() {
+        const formData = new FormData();
+        formData.append("name", "why");
+        formData.append("age", 18);
+        const response = await fetch("http://123.207.32.32:1888/02_param/postform", {
+          method: "post",
+          body: formData
+        });
+        // 获取response的状态
+        if (response.ok) {
+          const res = await response.json();
+          console.log(res);
+        }
+      }
+      getData();
+    </script>
+  </body>
+</html>

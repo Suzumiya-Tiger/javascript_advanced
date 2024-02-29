@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function hyajax({ url, method = "get", data = {}, successCB, failureCB } = {}) {
+        // 1.创建xhr请求(AJAX请求)
+        const xhr = new XMLHttpRequest();
+        // 2.请求完成后的响应回调获取
+        xhr.onload = function () {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            successCB && successCB(xhr.response);
+          } else {
+            failureCB && failureCB({ status: xhr.status, message: xhr.statusText });
+          }
+        };
+        // 3.设置类型
+        xhr.responseType = "json";
+        // 4.open方法
+        if (method.toUpperCase() === "GET") {
+          const queryString = [];
+          for (const key in data) {
+            queryString.push(`${key}=${data[key]}`);
+          }
+          url = url + "?" + queryString.join("&");
+          console.log(url);
+          xhr.open(method, url);
+          xhr.send();
+        } else {
+          xhr.open(method, url);
+          // 5.设置请求头
+          xhr.setRequestHeader("Content-Type", "application/json");
+          // 6.发出请求
+          xhr.send(JSON.stringify(data));
+        }
+      }
+
+      hyajax({
+        url: "http://123.207.32.32:1888/02_param/get",
+        data: {
+          name: "haruhi",
+          age: 22
+        }, //["name=why","age=18"]
+        method: "get",
+        successCB: function (res) {
+          console.log(res);
+        },
+        failureCB: function (err) {
+          console.log(err.message);
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      async function getData() {
+        const response = await fetch("http://123.207.32.32:1888/02_param/postjson", {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            name: "why",
+            age: 18
+          })
+        });
+        const res = await response.json();
+        console.log(res);
+      }
+      getData();
+    </script>
+  </body>
+</html>

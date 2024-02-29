@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /* I.优化版本一 */
+      // 1.fetch发送get请求
+      /*       fetch("http://123.207.32.32:8000/home/multidata")
+              .then(res => {
+                // 1.获取reponse
+                const response = res;
+                console.log(response);
+                //   2.获取具体的结果
+                return response.json();
+              })
+              .then(res => {
+                console.log(res);
+              })
+              .catch(error => {
+                console.log(error);
+              }); */
+
+      /* II.优化版本II */
+      async function getData() {
+        const response = await fetch("http://123.207.32.32:8000/home/multidata");
+        const res = await reponse.json();
+        console.log(res);
+      }
+      getData();
+    </script>
+  </body>
+</html>

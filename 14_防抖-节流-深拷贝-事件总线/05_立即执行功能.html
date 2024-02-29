@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" />
+    <button class="cancel">cancel</button>
+    <script>
+      /* 防抖处理代码 */
+      // 1.获取input元素
+      const inputEl = document.querySelector("input");
+      const cancelBtn = document.querySelector(".cancel");
+      function hydebounce(cbFn, delay) {
+        // 1.用于记录上一次事件触发的timer
+        let timer = null;
+        // 2.触发事件时的执行函数
+        const _debounce = function (...args) {
+          // 2.1 如果再次触发事件，清除上一次的timer
+          if (timer) clearTimeout(timer);
+          // 2.2 延迟去执行对应的cbFn函数(传入的回调函数)
+          timer = setTimeout(() => {
+            cbFn.apply(this, args);
+            // 重置timer
+            timer = null;
+          }, delay);
+        };
+        // 3.给_debounce绑定一个取消的函数
+        _debounce.cancel = function () {
+          clearTimeout(timer);
+          timer = null;
+        };
+        // 返回一个新函数
+        return _debounce;
+      }
+
+      //   2.监听input元素的输入
+      let counter = 1;
+      const debounceFn = hydebounce(function (event) {
+        console.log(`发送了网络请求${counter++}`, this.value, event);
+        console.log(this);
+      }, 1500);
+      inputEl.oninput = debounceFn;
+      cancelBtn.onclick = function () {
+        debounceFn.cancel();
+      };
+    </script>
+  </body>
+</html>

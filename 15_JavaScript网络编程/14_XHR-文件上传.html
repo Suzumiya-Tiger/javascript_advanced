@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input class="file" type="file" />
+    <button class="upload">上传文件</button>
+
+    <script>
+      // xhr和fetch都可以文件上传，但是xhr可以监视文件上传进度
+      const uploadBtn = document.querySelector(".upload");
+      uploadBtn.onclick = function () {
+        // 1.创建对象
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+          console.log(xhr.response);
+        };
+        xhr.responseType = "json";
+        xhr.open("post", "http://123.207.32.32:1888/02_param/upload");
+        // 表单,通过获取元素来获取上传的文件
+        const fileEl = document.querySelector(".file");
+        // fileEl.files=>上传的文件
+        console.log(fileEl.files);
+        const file = fileEl.files[0];
+        // 转换为服务器接收的表单格式
+        const formData = new FormData();
+        formData.append("avatar", file);
+        // 发送请求
+        xhr.send(formData);
+      };
+    </script>
+  </body>
+</html>

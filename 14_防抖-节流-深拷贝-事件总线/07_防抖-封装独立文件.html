@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" />
+    <button class="cancel">cancel</button>
+    <script type="module">
+      import hydebounce from "./js/debounce";
+      /* 防抖处理代码 */
+      // 1.获取input元素
+      const inputEl = document.querySelector("input");
+      const cancelBtn = document.querySelector(".cancel");
+
+      //   2.监听input元素的输入
+      let counter = 1;
+      const debounceFn = hydebounce(
+        function (name, age, height) {
+          console.log("+++++++++", name, age, height);
+          return "yes rpg";
+        },
+        1000,
+        false
+      );
+      debounceFn("why", "123", 18).then(res => {
+        console.log(res);
+      });
+      debounceFn("why", "123", 18).then(res => {
+        console.log(res);
+      });
+      debounceFn("why", "123", 18).then(res => {
+        console.log(res);
+      });
+    </script>
+  </body>
+</html>

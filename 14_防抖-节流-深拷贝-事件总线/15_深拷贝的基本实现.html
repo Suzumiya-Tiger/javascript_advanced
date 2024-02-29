@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="./js/is_object.js"></script>
+    <script>
+      import isObject from "./js/is_object";
+      // 封装深拷贝函数
+      function deepCopy(originValue) {
+        // 1.如果是基本的数据值，直接返回
+        if (!isObject(originValue)) {
+          return originValue;
+        }
+
+        // 2.如果是对象类型，才需要创建对象
+        const newObj = {};
+        for (const key in originValue) {
+          newObj[key] = deepCopy(originValue[key]);
+        }
+        return newObj;
+      }
+      const info = {
+        name: "why",
+        age: 18,
+        friend: {
+          name: "haruhi",
+          age: 16,
+          address: {
+            name: "tokyo",
+            detail: "beigao"
+          }
+        }
+      };
+      const deepObj = deepCopy(info);
+      console.log((deepObj.friend.name = "mikasa"));
+      console.log(info.friend.name);
+    </script>
+  </body>
+</html>

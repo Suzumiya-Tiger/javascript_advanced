@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- nav.vue -->
+    <button class="nav-btn">nav button</button>
+    <script>
+      // 类EventBus=>事件总线对象
+      class HYEventBus {
+        constructor() {
+          this.eventMap = {};
+        }
+        on(eventName, eventFn) {
+          let eventFns = this.eventMap[eventName];
+          //   因为eventFns可能不存在，所以我们需要做一个判断处理
+          if (!eventFns) {
+            eventFns = [];
+            this.eventMap[eventName] = eventFns;
+          }
+          eventFns.push(eventFn);
+        }
+        emit(eventName, ...args) {
+          let eventFns = this.eventMap[eventName];
+          if (!eventFns || eventFns.length === 0) {
+            return;
+          }
+          eventFns.forEach(fn => {
+            fn(...args);
+          });
+        }
+        off(eventName, eventFn) {
+          let eventFns = this.eventMap[eventName];
+          if (!eventFns || eventFns.length === 0) {
+            return;
+          }
+          eventFns.forEach((fn, index) => {
+            if (fn === eventFn) {
+              eventFns.splice(index, 1);
+            }
+          });
+
+          //   如果eventFns为空了，我们就把这个事件名也删除掉
+          if (eventFns.length === 0) {
+            delete this.eventMap[eventName];
+          }
+        }
+      }
+      // 使用过程
+      const eventBus = new HYEventBus();
+
+      // 假设在aside.vue组件中监听事件
+      eventBus.on("navclick", (title, num) => {
+        console.log("aside组件监听到了navClick事件11111");
+        console.log(title, num);
+      });
+      eventBus.on("navclick", (title, num) => {
+        console.log("aside组件监听到了navClick事件22222");
+        console.log(title, num);
+      });
+      //   假设在nav.vue
+      const navBtnEl = document.querySelector(".nav-btn");
+      navBtnEl.onclick = function () {
+        console.log("自己监听到");
+        // 发射事件让其他文件监听到
+        eventBus.emit("navclick", "asa", 13);
+      };
+    </script>
+  </body>
+</html>

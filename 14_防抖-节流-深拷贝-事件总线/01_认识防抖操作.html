@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" />
+    <!-- 通过underscore JS库来实现防抖和节流 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.6/underscore-umd-min.js"></script>
+    <script>
+      // 1.获取input元素
+      /*       const inputEl = document.querySelector("input");
+      //   2.监听input元素的输入
+      let counter = 1;
+      inputEl.oninput = function () {
+        console.log(`发送了网络请求${counter++}`, this.value);
+      }; */
+
+      /* 防抖处理代码 */
+      // 1.获取input元素
+      const inputEl = document.querySelector("input");
+      //   2.监听input元素的输入
+      let counter = 1;
+      inputEl.oninput = _.debounce(function () {
+        console.log(`发送了网络请求${counter++}`, this.value);
+        console.log(this);
+      }, 500);
+    </script>
+  </body>
+</html>

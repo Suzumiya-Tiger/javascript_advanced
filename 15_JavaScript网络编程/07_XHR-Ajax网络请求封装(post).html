@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function hyajax({ url, method = "get", data = {}, successCB, failureCB } = {}) {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            successCB && successCB(xhr.response);
+          } else {
+            failureCB && failureCB({ status: xhr.status, message: xhr.statusText });
+          }
+        };
+        xhr.responseType = "json";
+
+        xhr.open(method, url);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(JSON.stringify(data));
+      }
+
+      hyajax({
+        url: "http://123.207.32.32:1888/02_param/postjson",
+        method: "post",
+        data: {
+          name: "haruhi",
+          age: 22
+        },
+        successCB: function (res) {
+          console.log(res);
+        },
+        failureCB: function (err) {
+          console.log(err.message);
+        }
+      });
+    </script>
+  </body>
+</html>

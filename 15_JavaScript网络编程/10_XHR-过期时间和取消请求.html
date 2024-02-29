@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button class="cancelRequest">取消请求</button>
+    <script>
+      const xhr = new XMLHttpRequest();
+
+      xhr.onload = function () {
+        console.log(xhr.response);
+      };
+      xhr.onabort = function () {
+        console.log("请求被取消");
+      };
+      xhr.responseType = "json";
+      // timeout:浏览器达到过期时间，仍未获取对应的结果，取消本次请求
+      /*       xhr.timeout = 3000;
+       */ // 1.过期时间的设置
+      /*       xhr.ontimeout = function () {
+        console.log("请求过期 timeout");
+      }; */
+      xhr.open("get", "http://123.207.32.32:1888/01_basic/timeout");
+
+      xhr.send();
+
+      // 2.手动取消结果
+      const cancelBtn = document.querySelector(".cancelRequest");
+      cancelBtn.onclick = function () {
+        xhr.abort();
+      };
+    </script>
+  </body>
+</html>

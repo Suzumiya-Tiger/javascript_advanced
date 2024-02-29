@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 1.创建XMLHttpRequest对象
+      const xhr = new XMLHttpRequest();
+      // 2.xhr.onload代表了响应数据加载完成的状态
+      xhr.onload = function () {
+        console.log(xhr.response);
+      };
+      // 3.告知xhr获取到的数据的类型,默认是字符串
+      // 我们将其设置为json
+      xhr.responseType = "json";
+      // 3.配置请求(通过open方法配置请求)
+      // method:请求的方式(get/post/put/delete)
+      xhr.open("get", "http://139.199.212.233:8082/moment/list");
+      // 4.发送请求(浏览器帮助发送对应的请求)
+      xhr.send();
+
+      console.log("1");
+      console.log("2");
+      console.log("3");
+    </script>
+  </body>
+</html>

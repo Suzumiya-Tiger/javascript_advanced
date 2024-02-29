@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form class="info">
+      <input type="text" name="username" />
+      <input type="text" name="password" />
+    </form>
+
+    <button class="send">提交数据</button>
+    <script>
+      //   I.传递参数方式一：get请求参数拼接在url后面
+      // 1.创建XMLHttpRequest对象
+      const xhr = new XMLHttpRequest();
+      // 2.监听状态的改变(宏任务)
+      // 在这里获取发送 请求的结果
+      xhr.onload = function () {
+        console.log(xhr.response);
+      };
+      // 3.配置请求(通过open方法配置请求)
+      xhr.responseType = "json";
+      // xhr.open("get", "http://123.207.32.32:1888/02_param/get?name=why&age=18");
+      // xhr.send();
+
+      //   //   II.传递参数方式二：post请求=>urlencoded
+      //   xhr.open("post", "http://123.207.32.32:1888/02_param/posturl");
+      //   const urlParam = "name=why&age=18";
+      //   // urlencoded请求和get的query请求传参形式一致，只不过请求体放在了xhr.send()的传参里面
+      //   //   我们必须为请求头设置Content-Type，告诉服务器请求体的格式
+      //   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      //   xhr.send(urlParam);
+
+      //   III.传递参数方式三：post请求=>formData
+      //   const sendBtn = document.querySelector(".send");
+      //   const formEl = document.querySelector(".info");
+      //   sendBtn.onclick = function () {
+      //     const xhr = new XMLHttpRequest();
+      //     xhr.onload = function () {
+      //       console.log(xhr.response);
+      //     };
+      //     xhr.responseType = "json";
+      //     xhr.open("post", "http://123.207.32.32:1888/02_param/postform");
+
+      //     // 核心:formElement对象转成FormData对象
+      //     const formData = new FormData(formEl);
+      //     xhr.send(formData);
+      //   };
+
+      //   IV.传递参数方式四(主要)：post请求=>json
+
+      xhr.responseType = "json";
+      xhr.open("post", "http://123.207.32.32:1888/02_param/postjson");
+      //   默认情况下是charset=utf-8，可以省略编码格式
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.send(JSON.stringify({ name: "why", age: 18, height: 1.88 }));
+    </script>
+  </body>
+</html>
