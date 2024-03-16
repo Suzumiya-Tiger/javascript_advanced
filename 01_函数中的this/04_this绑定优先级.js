@@ -5,7 +5,7 @@ function foo() {
 //   foo: foo
 // };
 
-/* 1.显示绑定高于隐式绑定 */
+/* 1.显式绑定高于隐式绑定 */
 // obj.foo.apply("abc");
 
 /* 1.1.bind绑定高于隐式绑定 */
@@ -34,7 +34,7 @@ function foo() {
 // var bindFn = bee.bind("aaa");
 // new bindFn();
 
-/* 3.1 bind和apply,call的优先级比较:bind高于apply/call，可以理解为显示硬绑定的胜利 */
+/* 3.1 bind和apply,call的优先级比较:bind高于apply/call，可以理解为显式硬绑定的胜利 */
 function bee() {
   console.log("bee:", this);
 }

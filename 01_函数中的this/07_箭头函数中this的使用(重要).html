@@ -31,7 +31,7 @@
     // var fn = obj.foo();
     // fn.apply("bbb");
     // 为什么fn.apply("bbb")的结果是obj，而不是全局对象？
-    /* 当你调用 obj.foo() 时，bar 函数被创建，并且它的 this 被绑定到 obj。
+    /* 当你调用 obj.foo() 时，bar 函数被创建，并且它的 this 通过foo函数定义时的函数上下文环境被绑定到 obj。
     然后，bar 被返回并赋值给 fn。当你后来调用 fn.apply("bbb") 时，
     尽管你试图通过 apply 改变 this 的值，但是 this 的值已经在 bar 被定义时被固定为 obj，
     所以 this 仍然指向 obj。
@@ -50,7 +50,7 @@
     var fn = obj.foo();
     fn.apply("bbb");
     /** 严格注意这道题目！
-     * obj的{}并非是一个作用域，作用域指的是函数作用域，而不是对象作用域
+     * obj的{}并非是一个作用域，作用域指的是!函数作用域!，而不是对象作用域
      * this的查找是沿着作用域链向上查找的，这个作用域链是在函数定义时决定的
      * 所以这里的this指向的是全局对象
      * window=>顶级作用域
